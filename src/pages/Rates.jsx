@@ -17,10 +17,7 @@ const Rates = () => {
 
   useEffect(() => {
     if (baseCurrency) {
-      dispatch(fetchRates(baseCurrency))
-        .unwrap()
-        .then(() => console.log('✅ fetchRates dispatched'))
-        .catch(err => console.error('❌ fetchRates error:', err));
+      dispatch(fetchRates(baseCurrency));
     }
   }, [baseCurrency, dispatch]);
 

@@ -1,18 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
-import Rates from './pages/Rates';
 import Header from './components/Header/Header';
-import { useEffect } from 'react';
+import { lazy, useEffect, Suspense } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchBaseCurrency } from './redux/operation';
 import { setBaseCurrency } from './redux/slice';
+
+const Home = lazy(() => import('./pages/Home'));
+const Rates = lazy(() => import('./pages/Rates'));
 
 export const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const options = {
       enableHighAccuracy: true,
-      timeout: 50000,
+      timeout: 5000,
       maximumAge: 0,
     };
 
@@ -29,11 +30,13 @@ export const App = () => {
   return (
     <div>
       <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/rates" element={<Rates />} />
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/rates" element={<Rates />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };

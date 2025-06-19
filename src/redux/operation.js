@@ -24,7 +24,7 @@ export const fetchExchangeCurrency = createAsyncThunk(
   async (currency, thunkAPI) => {
     try {
       const rest = await exchangeCurrency(currency);
-      console.log(rest);
+
       return rest;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -36,12 +36,10 @@ export const fetchRates = createAsyncThunk(
   'currency/fetchRates',
   async (baseCurrency, thunkAPI) => {
     try {
-      console.log('➡️ fetchRates start:', baseCurrency);
       const rates = await latestRates(baseCurrency);
-      console.log('✅ fetchRates success:', rates);
+
       return { baseCurrency, rates };
     } catch (error) {
-      console.log('❌ fetchRates error:', error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   },
