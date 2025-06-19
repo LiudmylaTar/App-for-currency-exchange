@@ -47,7 +47,6 @@ const slice = createSlice({
         state.rates = action.payload.rates;
       })
       .addCase(fetchRates.rejected, (state, action) => {
-        console.log('Rates fetch failed:', action.payload);
         state.isLoading = false;
         state.isError = action.payload;
       }),
